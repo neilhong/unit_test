@@ -1,0 +1,9 @@
+flask                                                                                                                                                                                                                                       
+flask-restful
+flask-httpauth
+flask-sqlalchemy
+flask-openid
+python-dateutil
+colorama
+pyprimes
+requests
