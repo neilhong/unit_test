@@ -16,7 +16,7 @@ import pytest
 import json
 from conftest import DATA
 from server.__main__ import User, Group
-from server.__main__ import get_user, get_group
+from server.__main__ import get_user, get_group, post_user, post_group
 
 def test_tox_works():
     assert 3==3
@@ -31,28 +31,24 @@ def user_data(request):
 
 class TestUser(object):
     def test_get_user(self, app):
-        from server.__main__ import get_user
         with app.test_request_context('/user', method='GET'):
             resp = get_user()
         data = json.loads(resp)
         assert isinstance(data, list)
 
     def test_get_group(self, app):
-        from server.__main__ import get_group
         with app.test_request_context('/group', method='GET'):
             resp = get_group()
         data = json.loads(resp)
         assert isinstance(data, list)
 
     def test_post_group(self, app, db, group_data):
-        from server.__main__ import post_group
         with app.test_request_context('/group', method='POST', data=json.dumps(group_data)):
             resp, code = post_group()
         assert isinstance(resp, basestring)
         assert code == 204
 
     def test_post_user(self, app, db, user_data):
-        from server.__main__ import post_user
         with app.test_request_context('/user', method='POST', data=json.dumps(user_data)):
             resp, code = post_user()
         assert isinstance(resp, basestring)

@@ -74,11 +74,9 @@ DATA = collections.OrderedDict([
 
 @pytest.yield_fixture
 def app(request):
-    app = Flask(__name__)
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    main.app.debug = True
+    main.app.testing = True
     with main.app.test_request_context():
-        main.app.debug = True
-        main.app.testing = True
         yield main.app
 
 
@@ -86,28 +84,10 @@ def app(request):
 def db(app, monkeypatch, request):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/unit_test.db'
     db = SQLAlchemy(app)
-    # db.create_all()
+    monkeypatch.setattr(main, 'db', db)
     Base.metadata.drop_all(db.engine)
     Base.metadata.create_all(db.engine)
-
-    #session = db.session()
-
-    ## 插入初始化数据
-    #obj_list = []
-    #for model, values in DATA.items():
-    #    for value in values:
-    #        obj = model(**value)
-    #        session.add(obj)
-    #        obj_list.append((value, obj))
-    #session.commit()
-
-    ## 记录ID
-    #for value, obj in obj_list:
-    #    value['id'] = obj.id
-
-    #app.db = db
     yield db
-    db.drop_all()
 
 def create_group(code):
     resource = models.Group(code=code)
