@@ -30,13 +30,13 @@ def user_data(request):
     return request.param
 
 class TestUser(object):
-    def test_get_user(self, app):
+    def test_get_user(self, app, db):
         with app.test_request_context('/user', method='GET'):
             resp = get_user()
         data = json.loads(resp)
         assert isinstance(data, list)
 
-    def test_get_group(self, app):
+    def test_get_group(self, app, db):
         with app.test_request_context('/group', method='GET'):
             resp = get_group()
         data = json.loads(resp)
