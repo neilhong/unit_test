@@ -15,8 +15,8 @@ Changelog:
 import pytest
 import json
 from conftest import DATA
-from server.__main__ import User, Group
-from server.__main__ import get_user, get_group, post_user, post_group
+from code.__main__ import User, Group
+from code.__main__ import get_user, get_group, post_user, post_group
 
 def test_tox_works():
     assert 3==3

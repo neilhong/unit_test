@@ -21,8 +21,8 @@ import pytest
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 
-from server import __main__ as main
-from server.models import Base, User, Group
+from code import __main__ as main
+from code.models import Base, User, Group
 
 import config
 
