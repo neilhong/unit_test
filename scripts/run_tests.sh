@@ -7,16 +7,7 @@ _cmd_exists() {
 }
 
 _install_rsa() {
-    if _cmd_exists brew
-    then
-        brew install swig
-        env LDFLAGS="-L$(brew --prefix openssl)/lib" \
-            CFLAGS="-I$(brew --prefix openssl)/include" \
-            SWIG_FEATURES="-cpperraswarn -includeall -I$(brew --prefix openssl)/include" \
-            pip install m2crypto
-    else
-        apt-get install python-m2crypto
-    fi
+    apt-get install python-m2crypto
 }
 
 _install_pip() {
